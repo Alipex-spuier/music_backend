@@ -1,21 +1,39 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_music
+ Source Server         : music
  Source Server Type    : MySQL
- Source Server Version : 80034 (8.0.34-0ubuntu0.20.04.1)
+ Source Server Version : 80300 (8.3.0)
  Source Host           : localhost:3306
  Source Schema         : music
 
  Target Server Type    : MySQL
- Target Server Version : 80034 (8.0.34-0ubuntu0.20.04.1)
+ Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
 
- Date: 24/04/2024 18:11:19
+ Date: 24/04/2024 18:24:52
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for contact
+-- ----------------------------
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE `contact`  (
+  `contact_id` int NOT NULL,
+  `user_id` int NULL DEFAULT NULL,
+  `music_id` int NULL DEFAULT NULL,
+  `contact_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`contact_id`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  INDEX `music_id`(`music_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of contact
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for music_details
@@ -338,5 +356,21 @@ INSERT INTO `music_recommend` VALUES (137, 0.86, 0.05, 'male', 'surprise');
 INSERT INTO `music_recommend` VALUES (138, 0.35, 0.65, 'female', 'surprise');
 INSERT INTO `music_recommend` VALUES (139, 0.04, 0.60, 'male', 'surprise');
 INSERT INTO `music_recommend` VALUES (140, 0.69, 0.76, 'male', 'surprise');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `user_id` int NOT NULL,
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_photo` binary(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
