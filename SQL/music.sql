@@ -11,28 +11,42 @@
  Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
 
- Date: 24/04/2024 18:24:52
+ Date: 29/04/2024 04:10:14
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for contact
+-- Table structure for favorite
 -- ----------------------------
-DROP TABLE IF EXISTS `contact`;
-CREATE TABLE `contact`  (
-  `contact_id` int NOT NULL,
-  `user_id` int NULL DEFAULT NULL,
-  `music_id` int NULL DEFAULT NULL,
-  `contact_time` datetime NULL DEFAULT NULL,
-  PRIMARY KEY (`contact_id`) USING BTREE,
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE `favorite`  (
+  `favorite_id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `music_id` int NOT NULL,
+  PRIMARY KEY (`favorite_id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   INDEX `music_id`(`music_id` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
--- Records of contact
+-- Records of favorite
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for history
+-- ----------------------------
+DROP TABLE IF EXISTS `history`;
+CREATE TABLE `history`  (
+  `history_id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `music_id` int NOT NULL,
+  PRIMARY KEY (`history_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of history
 -- ----------------------------
 
 -- ----------------------------
@@ -362,15 +376,21 @@ INSERT INTO `music_recommend` VALUES (140, 0.69, 0.76, 'male', 'surprise');
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `user_id` int NOT NULL,
-  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_photo` binary(1) NULL DEFAULT NULL,
-  PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `user_id` bigint NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `password` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `status` int NOT NULL,
+  `created` datetime NULL DEFAULT NULL,
+  `last_login` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`) USING BTREE,
+  INDEX `UK_USERNAME`(`username` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (1, 'alipex', NULL, NULL, 'e10adc3949ba59abbe56e057f20f883e', 1, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
